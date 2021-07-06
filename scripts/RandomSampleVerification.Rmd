@@ -1,0 +1,32 @@
+---
+title: "Random Sample Verification"
+output: html_notebook
+---
+```{r}
+# Load Packages
+library(ggplot2)
+library(tidyr)
+library(plyr)
+library(dplyr)
+library(base)
+library(car)
+library(lme4)
+library(lmerTest)
+library(ggbeeswarm)
+library(lubridate)
+```
+
+```{r}
+# Import Data
+nn <- read.csv("/Users/ae384/Desktop/CarDS/Secure Data/hp_dc_merge_omop.csv")
+mrn <- read.csv("/Users/ae384/Desktop/CarDS/Secure Data/MRN_to_patient_id_0330.csv")
+gg <- read.csv("/Users/ae384/Desktop/CarDS/RandomSample_Notes_Echo.csv")
+```
+
+head(nn)
+
+
+
+
+
+
