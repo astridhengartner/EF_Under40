@@ -20,12 +20,101 @@ library(lubridate)
 # Import Data
 nn <- read.csv("/Users/ae384/Desktop/CarDS/Secure Data/hp_dc_merge_omop.csv")
 mrn <- read.csv("/Users/ae384/Desktop/CarDS/Secure Data/MRN_to_patient_id_0330.csv")
-gg <- read.csv("/Users/ae384/Desktop/CarDS/RandomSample_Notes_Echo.csv")
+gg <- read.csv("/Users/ae384/Desktop/CarDS/Results_Notes-Echo.csv")
 ```
 
-head(nn)
+```{r}
+# Create columns for each category
+
+  # Create column for E0_N0
+    gg$E0_N0 <- NA
+    Flag4 <- FALSE
+    
+    for (i in 1:nrow(gg))
+    { 
+      Flag4[i] <- gg$Ever_less40[i] == 0 & gg$notes_HF[i] == 0
+      gg$E0_N0[i] <- Flag4[i]
+    } 
+    
+    gg$E0_N0 <- as.numeric(gg$E0_N0)
+
+# Create column for E0_N1
+    gg$E0_N1 <- NA
+    
+    Flag4 <- FALSE
+    
+    for (i in 1:nrow(gg))
+    { 
+      Flag4[i] <- gg$Ever_less40[i] == 0 & gg$notes_HF[i] == 1
+      gg$E0_N1[i] <- Flag4[i]
+    } 
+    
+    gg$E0_N1 <- as.numeric(gg$E0_N1)
 
 
+# Create column for E1_N0
+    gg$E1_N0 <- NA
+    
+    Flag4 <- FALSE
+    
+    for (i in 1:nrow(gg))
+    { 
+      Flag4[i] <- gg$Ever_less40[i] == 1 & gg$notes_HF[i] == 0
+      gg$E1_N0[i] <- Flag4[i]
+    } 
+    
+    gg$E1_N0 <- as.numeric(gg$E1_N0)
+
+# Create column for E1_N1
+    gg$E1_N1 <- NA
+    
+    Flag4 <- FALSE
+    
+    for (i in 1:nrow(gg))
+    { 
+      Flag4[i] <- gg$Ever_less40[i] == 1 & gg$notes_HF[i] == 1
+      gg$E1_N1[i] <- Flag4[i]
+    } 
+    
+    gg$E1_N1 <- as.numeric(gg$E1_N1)
+```
+
+```{r}
+# Select only E0_N0
+e0_n0 <- filter(gg, E0_N0 == 1)
+
+# Randomly sample from here
+zz <- e0_n0[base::sample(nrow(e0_n0), 25), ]
+```
+
+```{r}
+# Select only E0_N1
+e0_n1 <- filter(gg, E0_N1 == 1)
+
+# Randomly sample from here
+zo <- e0_n1[base::sample(nrow(e0_n1), 25), ]
+```
+
+```{r}
+# Select only E1_N0
+e1_n0 <- filter(gg, E1_N0 == 1)
+
+# Randomly sample from here
+oz <- e1_n0[base::sample(nrow(e1_n0), 25), ]
+```
+
+```{r}
+# Select only E1_N1
+e1_n1 <- filter(gg, E1_N1 == 1)
+
+# Randomly sample from here
+oo <- e1_n1[base::sample(nrow(e1_n1), 25), ]
+```
+
+```{r}
+# Compile the randomly selected patients into one array
+ggg <- base::rbind(zz, zo, oz, oo)
+```
 
 
 
